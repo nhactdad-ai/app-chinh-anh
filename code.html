@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lumina Grade | Professional Photo Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            font-size: 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #414755;
+            border-radius: 10px;
+        }
+        .slider-thumb-custom::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #005bc1;
+        }
+        .slider-thumb-custom::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #005bc1;
+        }
+        .canvas-container {
+            background-image: 
+                linear-gradient(45deg, #1a1a1a 25%, transparent 25%), 
+                linear-gradient(-45deg, #1a1a1a 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #1a1a1a 75%), 
+                linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#ffdad6",
+                      "surface-bright": "#393939",
+                      "outline": "#8b90a0",
+                      "tertiary-fixed-dim": "#ffb595",
+                      "outline-variant": "#414755",
+                      "inverse-primary": "#005bc1",
+                      "primary-fixed": "#d8e2ff",
+                      "on-secondary-container": "#b6b5b4",
+                      "tertiary": "#ffb595",
+                      "surface-container": "#202020",
+                      "on-secondary": "#303030",
+                      "tertiary-fixed": "#ffdbcc",
+                      "on-tertiary-fixed-variant": "#7c2e00",
+                      "surface": "#131313",
+                      "tertiary-container": "#ef6719",
+                      "primary-container": "#4b8eff",
+                      "primary-fixed-dim": "#adc6ff",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "on-primary-fixed-variant": "#004493",
+                      "primary": "#adc6ff",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-tint": "#adc6ff",
+                      "error-container": "#93000a",
+                      "inverse-on-surface": "#303030",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed": "#001a41",
+                      "surface-variant": "#353535",
+                      "secondary": "#c8c6c6",
+                      "surface-container-highest": "#353535",
+                      "surface-dim": "#131313",
+                      "secondary-container": "#474747",
+                      "on-error": "#690005",
+                      "secondary-fixed": "#e4e2e1",
+                      "on-surface": "#e5e2e1",
+                      "on-secondary-fixed-variant": "#474747",
+                      "on-primary-container": "#00285c",
+                      "on-surface-variant": "#c1c6d7",
+                      "on-tertiary": "#571e00",
+                      "surface-container-low": "#1b1b1c",
+                      "inverse-surface": "#e5e2e1",
+                      "background": "#131313",
+                      "on-tertiary-container": "#4c1a00",
+                      "secondary-fixed-dim": "#c8c6c6",
+                      "on-primary": "#002e69",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-background": "#e5e2e1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "toolbar-height": "48px",
+                      "unit": "4px",
+                      "sidebar-width": "300px",
+                      "padding-control": "8px",
+                      "margin-panel": "16px",
+                      "gutter": "12px"
+              },
+              "fontFamily": {
+                      "mono-label": ["JetBrains Mono"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-md": ["Inter"]
+              },
+              "fontSize": {
+                      "mono-label": ["11px", {"lineHeight": "14px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-md": ["13px", {"lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-lg": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "headline-md": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30 overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-margin-panel h-toolbar-height w-full z-50 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-6">
+<h1 class="text-headline-md font-headline-md font-black tracking-tighter text-on-surface">Lumina Grade</h1>
+<nav class="hidden md:flex items-center gap-4">
+<button class="text-on-surface-variant font-label-md hover:bg-surface-variant transition-colors px-2 py-1 rounded">New</button>
+<button class="text-on-surface-variant font-label-md hover:bg-surface-variant transition-colors px-2 py-1 rounded">Open</button>
+<button class="text-on-surface-variant font-label-md hover:bg-surface-variant transition-colors px-2 py-1 rounded">Save</button>
+<button class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md">Export</button>
+</nav>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container px-3 py-1.5 rounded-lg hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+<span class="text-label-md font-bold">AI Enhance</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<div class="flex gap-1">
+<button class="p-2 hover:bg-surface-variant rounded-full text-on-surface-variant"><span class="material-symbols-outlined">undo</span></button>
+<button class="p-2 hover:bg-surface-variant rounded-full text-on-surface-variant"><span class="material-symbols-outlined">redo</span></button>
+<button class="p-2 hover:bg-surface-variant rounded-full text-on-surface-variant"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<div class="ml-2 w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a creative director in a dark turtleneck, against a minimalist charcoal background. The lighting is sophisticated and directional, creating a premium professional feel. High-quality resolution, sharp focus on the eyes, representing a modern UI profile image." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHm1kqRqr2up9RjrOvdbz1RPxV-oaVhicq4cRoIa5p4c2ff6hSF3EBhUPqjY0DmEH8DEQgHFVR3Uy3NdYHtGgiULI2hJtbPyTxgp8y9m3QEX3SJzL53WLXAKkplKUWoi1XIDpsKkypm1XK23CKT_q0xV1QXaSXKjJV69YrOmuJFoGoN6pPY50UafWUmH-mtqhLHIKHrdLsqkVpFYPT6cSLH-PRrZVrtmk_aPIdjNWk2vqqaqMEqaTnd4c2QeweTxMUJ7NxiIsj5kXV"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Sidebar (Library/Presets) -->
+<aside class="fixed left-0 top-toolbar-height h-[calc(100vh-toolbar-height-120px)] w-sidebar-width bg-surface-container border-r border-outline-variant flex flex-col z-40">
+<div class="p-4 border-b border-outline-variant">
+<div class="flex justify-between items-center mb-1">
+<span class="text-primary font-headline-md font-bold">Library</span>
+<button class="text-label-sm font-label-sm text-primary hover:underline">Import Presets</button>
+</div>
+<p class="text-on-surface-variant text-label-sm">Presets &amp; Assets</p>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
+<!-- Preset Categories -->
+<div>
+<h3 class="text-label-sm font-bold text-on-surface-variant mb-3 uppercase tracking-widest">Natural</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-1 border-2 border-primary">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A serene landscape photo of rolling green hills during golden hour, with soft warm light hitting the peaks. The colors are natural and vibrant with deep greens and warm orange sky. High detail, 8k resolution, professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3qPKL3j-nVnbyyzBjMVmuLlltnyvA4JWEU-4-JxYFEhpxvYYTfl3UBQC6mo7594ESzK9j0VJ7kzHuh9aLesQKxZX0ud1qv_vn8nt5wg9NxAWzmb0J2DIYfzNz_hdsec00r1YqgZa2z5ozn2tcwSVXb_AnvdlC9vJtXCXIaWHGDsiBf5UFLUu8fJ1kY3f8qyK_IzOzbchdtYHeqzPSj4yfjxnTFjD-9i7k0LxrWsPhf7HKm19tve6cJ8ns9IssyvxRkF00CGm4k7Sm"/>
+</div>
+<span class="text-label-sm text-primary font-bold">Golden Hour</span>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-1 border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A crisp morning forest scene with light rays filtering through tall pine trees and morning mist. The aesthetic is cool, fresh, and natural. Soft textures and high dynamic range, cinematic nature photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD9ABFYx3DzU_9QAawMT39JI8dKaGJE44OC2QmBaGMuLwuMojaJppHF36wCAOxbAIuxQfBbm2kySQ9eeov-5g4fnoCAe9iESAAA9zz4h4_gKUAMXb9ELqJA-I6CufBkhL9nQ5F1q3yLSTktmLcFIu1L-9SRaoJxSE4FVg5_-BNOyeSPUbPhdS3UieXLngibg0j5q6cbqkY1Q4uZe3evStzJ3pPc4P4HfCJioa3VC6VjNEtaB_lNc9B-3Fc6D_YLxr8mDbAlS8r-snS"/>
+</div>
+<span class="text-label-sm text-on-surface-variant">Soft Mist</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-label-sm font-bold text-on-surface-variant mb-3 uppercase tracking-widest">Cinematic</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-1 border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A dramatic cinematic urban scene at night with teal and orange lighting. Rain-slicked streets reflecting neon signs, creating a moody, high-contrast atmosphere. Professional film grading aesthetic, deep shadows and glowing highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnHZiAymUVAc5uvJAbPxeSSJPlMwQV2qNIlYcp5j5jSKf6pnfdk60hvRTlbBY1lExsN5hb1q85cjgCPWJk3wRwN8TwwB2GL0XAayB-iywh6rN_aKny6JkwxuxQt-U97vYqwEMZFp3n3rMYC_PxbwB2ldfzYAxuDVp6sRoGCyH_rmHMpwCak53dr-2F_FEhp3KvTVxkE4yKJAHmXgZev2jXWh8jCGTMHX_cNi7AoCLJFLZyl2umpA9hRewlunyvhbgPokiTVMTAme1R"/>
+</div>
+<span class="text-label-sm text-on-surface-variant">Neo-Noir</span>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-1 border border-outline-variant">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A warm, nostalgic cinematic landscape with slightly desaturated colors and a classic film grain look. High-end film stock aesthetic with crushed blacks and creamy highlights. Beautiful, professional color grading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8awo9NNLb-Nk4XI538oClgtrChRjZi_yLJdV_aArY0BJ4KStnhrxAo0KvgXj52asRvw-gn1-3X3_aVLB9LCuLi2cAqtAON0EQ7Jx9SMNTCLTW533FyqcxWXKX-KEqpTu2Ba2J7XY8q9edexCFUVANSudW8gg55iGZF8QrvNOGARqb5o-KlmbbwPIg4UW2A6ufR4BAtenOiDsRGEvUsN_kHgmOxQlooAbe-bK2KcjdnLHrROhbqa7jFDcVJ56VhQ7vd1KduYWq9mc_"/>
+</div>
+<span class="text-label-sm text-on-surface-variant">Kodachrome</span>
+</div>
+</div>
+</div>
+<!-- Intensity Slider -->
+<div class="pt-4 border-t border-outline-variant">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-sm font-bold text-on-surface">Intensity</span>
+<span class="text-mono-label text-primary">80</span>
+</div>
+<input class="w-full h-1 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary slider-thumb-custom" max="100" min="0" type="range" value="80"/>
+</div>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto border-t border-outline-variant">
+<button class="w-full flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-sm">Settings</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-sm">Help</span>
+</button>
+</div>
+</aside>
+<!-- Center Workspace -->
+<section class="flex-1 ml-sidebar-width mr-sidebar-width flex flex-col bg-surface-container-lowest relative">
+<div class="flex-1 canvas-container flex items-center justify-center p-8 relative">
+<!-- The Main Canvas -->
+<div class="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border border-outline-variant group">
+<img class="w-full h-full object-cover" data-alt="A breathtaking professional landscape photograph of the Dolomites at sunrise. Jagged mountain peaks are hit with a vibrant magenta and orange light, contrasting against a deep blue valley with pockets of mist. The image is crisp, showing immense detail in the rock textures and pine trees. Professional grade composition and lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEGUnyoo3-3X2IYbJ-nI-b3FdF6S55Z7kk9rOcsRK_7f2PxRang1fYCbZKBczoa0_aATTePG0yIetTOgV9O1So16g3Te2lFKgLUA5Va_b8jm2Y_n98wjAbBMoTemo3Ty88U3hl3eNMZbuyJNLF1kxwfZ9UK8c-WmI09eRxIyH3MVYDEtj8n6VjoFet4chpP7SCHLSXz3-RiYeWYT0z603_DI04tlOxzBIVu4f9RMt1ddM3CQjZX13rJ8lrokiGmmAGSIiU4jj5Opks"/>
+<!-- Split View Handle Mockup -->
+<div class="absolute inset-y-0 left-1/2 w-1 bg-white/50 backdrop-blur cursor-col-resize z-10 flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-white text-surface flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">unfold_more</span>
+</div>
+</div>
+<!-- Canvas Overlays -->
+<div class="absolute top-4 left-4 flex gap-2">
+<div class="bg-surface/80 backdrop-blur px-3 py-1 rounded text-label-sm border border-outline-variant">Before / After</div>
+</div>
+</div>
+<!-- Workspace Toolbar -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-surface/90 backdrop-blur p-2 rounded-xl border border-outline-variant shadow-lg">
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">fit_screen</span>
+<span class="text-label-sm">Fit</span>
+</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface transition-colors"><span class="material-symbols-outlined">rotate_left</span></button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface transition-colors"><span class="material-symbols-outlined">rotate_right</span></button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface transition-colors"><span class="material-symbols-outlined">grid_on</span></button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface transition-colors"><span class="material-symbols-outlined">compare</span></button>
+</div>
+</div>
+<!-- Filmstrip -->
+<footer class="h-[120px] bg-surface border-t border-outline-variant flex items-center px-4 gap-3 overflow-x-auto custom-scrollbar">
+<div class="flex-none w-24 h-20 rounded-lg overflow-hidden border-2 border-primary relative">
+<img class="w-full h-full object-cover" data-alt="Thumbnail of a mountain landscape at sunrise, dramatic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmRvS1dEq8ebmYaiSKGSJDiKYboNimHn-1d2PnAECTXsoRoFyC4yFNyWJrCDyQnsZAMcyXNgCdjtUApw8qga5ekdIIFrxLU4YvZ5fT_Mgyipx_ChaQ28JfbqBoHCFTBxagjBYeydmN4EyDN3D-G3s8lTHxXv-1665b9NjXxNq0ILJsT4sng2fOrrkISO81jKaLo2t60D43OjqazZEa9W1BdbgywWolVobATKH--GJuuDZVrgwFcZqSecwDE3HZFDFOE1yT-1Pvz7S6"/>
+<div class="absolute bottom-1 right-1 bg-primary px-1 rounded text-[8px] font-bold text-on-primary">ACTIVE</div>
+</div>
+<div class="flex-none w-24 h-20 rounded-lg overflow-hidden border border-outline-variant opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Thumbnail of a dense forest with mist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Rp2W0jAwFAbRi7poZs1GLXTzWeo1lA0Tp_sYWdhy9YWkfn102EXSJoEVzwm85ccX1OQifzNrHPg8cGEDMrYFvQxGieEULvva0OKK7lP3_rICNbm52Us7Xs9uKkDBVSlwpG-7emSO_U8iCFfWAo1MJuamtddzmfkXa7p7oQ3IvZpXrYHaubONLcnZhNrjVLeXGw-Q0LuNJz6H7-4kT51dwtgvPvBqTmcmd8_FrEqQ0QIlakpGbRx3kWNtB5qOH_DpWfWbWiOB4vL1"/>
+</div>
+<div class="flex-none w-24 h-20 rounded-lg overflow-hidden border border-outline-variant opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Thumbnail of a coastal sunset with turquoise water." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDatzsW9R4WlBEpMaT5PSFE_dwIcolXIG_9OQXoeaHG0QetapDIBiUyhuJqaVxILPmN04cSZvjbWLHlrSOVgWuovDabLx2Ge99Yd6V14lHTVHa9-sBLlDOQwOemHNyBZmXZlZw3nbyX2bDGzAo3qKKnpKlxYI5ATlHp74sUWaBKuA_M_YDwafEdm3FrRAQtNHgDMjNVaxjJlVxsMdGob1yWY6_PB74WUbad3bDCQ3NEoCuVf2USBtPek2Pi993nVDCFD1ZDzui5lZ4e"/>
+</div>
+<div class="flex-none w-24 h-20 rounded-lg overflow-hidden border border-outline-variant opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Thumbnail of a snowy mountain peak under a clear blue sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcbvIWdYE5Ika_BeWvb4HkDKyyr1l1oV-BrsvuJQi7ECsF50PZ1KiH9uZQkDufME0QWygy6uRncNXzdtDRzO-33U1SthyFo_5MQD7a9BTu4kuaBAoRv_AqvLHRHRUMi56M0toSv2UkDjjJp1ho_2T5vZlD5EnbdERL7s30cYFSdfAsbloetbxyfP0wvn1_NTE0axxrIoe2qB2iiWrhAvyIe6ZW-fShkA_MlzvQXo1BsOyYG6-OqVzcNlHNlIjsi9iqq62HoQUmnacx"/>
+</div>
+<div class="flex-none w-24 h-20 rounded-lg overflow-hidden border border-outline-variant opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Thumbnail of a desert sand dune landscape at dusk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwHOxoLpdRMkUV9Q2C6jlG-kJhZOtSIcxs0jW6qqGq1Bh-bUbTRSfVX95YUg9juzlk_k8bB9uP6JH6hyjg7V3IuJR-fIoIbLV42O4bkwtv6rJwplzNXaMrdeBorWe79y_3uieUcLedIqIF4Wpj7FMdqEZu_qkm3VYo8KbusZqCcNAk6UhQ0as0Rof_kvILWh-DkqJMXT87Xapdh51stDYAWoh1ZqMdm6O-_BVUoL18ibsYpqOn4STp_1GcTyIKMDE5pMD97kG6Ydwj"/>
+</div>
+<div class="flex-none w-24 h-20 rounded-lg overflow-hidden border border-outline-variant opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Thumbnail of a lush tropical waterfall in a rainforest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdh1QyYWnBL-U02gP7XdIZKpBPJ8t28urmI96xUL864JZiDgifLibv8VWhRzXW80KyPbwbiVgOru7K33_o5yOZU4X7uTbQ4Nk55QZTlM7hkNVQ2_oE7EA8-mfLnh14TDqdVLcIvGCF1kcLk5Oq2xznjDLVkqFLBNoi0gOyfxYKWtV4Miai1-KfT8jIvhZ88iouGJtw41QuRZe57Vah-PGAcT4qBN8ll5pcmaETV-mdIAUsD0-_Rgzv_e6LTxWEkO2-KDwwUBTFXL5h"/>
+</div>
+</footer>
+</section>
+<!-- Right Sidebar (Inspector) -->
+<aside class="fixed right-0 top-toolbar-height h-[calc(100vh-toolbar-height)] w-sidebar-width bg-surface-container border-l border-outline-variant flex flex-col z-40">
+<div class="p-4 border-b border-outline-variant">
+<span class="text-primary font-headline-md font-bold">Inspector</span>
+<p class="text-on-surface-variant text-label-sm">Fine Tuning</p>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-2">
+<!-- Disclosure Group: Basic -->
+<details class="bg-surface-container-high rounded-xl overflow-hidden group" open="">
+<summary class="list-none cursor-pointer p-3 flex justify-between items-center hover:bg-surface-container-highest transition-colors">
+<span class="text-headline-md font-headline-md text-on-surface">Basic</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-4 space-y-4">
+<!-- Exposure -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-sm text-on-surface-variant">Exposure</span>
+<input class="w-12 bg-surface text-center font-mono-label text-primary border border-outline-variant rounded p-0.5 outline-none" type="text" value="+0.40"/>
+</div>
+<input class="w-full h-1 bg-background rounded-full appearance-none cursor-pointer accent-primary slider-thumb-custom" max="5" min="-5" step="0.01" type="range" value="0.4"/>
+</div>
+<!-- Contrast -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-sm text-on-surface-variant">Contrast</span>
+<input class="w-12 bg-surface text-center font-mono-label text-primary border border-outline-variant rounded p-0.5 outline-none" type="text" value="+10"/>
+</div>
+<input class="w-full h-1 bg-background rounded-full appearance-none cursor-pointer accent-primary slider-thumb-custom" max="100" min="-100" type="range" value="10"/>
+</div>
+<!-- Highlights/Shadows -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-sm text-on-surface-variant mb-1 block">Highlights</span>
+<input class="w-full h-1 bg-background rounded-full appearance-none cursor-pointer accent-primary slider-thumb-custom" type="range"/>
+</div>
+<div>
+<span class="text-label-sm text-on-surface-variant mb-1 block">Shadows</span>
+<input class="w-full h-1 bg-background rounded-full appearance-none cursor-pointer accent-primary slider-thumb-custom" type="range"/>
+</div>
+</div>
+</div>
+</details>
+<!-- Disclosure Group: Tone Curve -->
+<details class="bg-surface-container-high rounded-xl overflow-hidden group">
+<summary class="list-none cursor-pointer p-3 flex justify-between items-center hover:bg-surface-container-highest transition-colors">
+<span class="text-headline-md font-headline-md text-on-surface">Tone Curve</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-4">
+<div class="aspect-square bg-surface border border-outline-variant rounded relative overflow-hidden">
+<!-- Mock Curve -->
+<svg class="absolute inset-0 w-full h-full p-2" viewbox="0 0 100 100">
+<path d="M 0 100 Q 25 75 50 50 T 100 0" fill="none" stroke="#adc6ff" stroke-width="2"></path>
+<circle cx="50" cy="50" fill="white" r="3"></circle>
+<circle cx="25" cy="75" fill="white" opacity="0.5" r="2"></circle>
+<circle cx="75" cy="25" fill="white" opacity="0.5" r="2"></circle>
+</svg>
+</div>
+</div>
+</details>
+<!-- Disclosure Group: HSL -->
+<details class="bg-surface-container-high rounded-xl overflow-hidden group">
+<summary class="list-none cursor-pointer p-3 flex justify-between items-center hover:bg-surface-container-highest transition-colors">
+<span class="text-headline-md font-headline-md text-on-surface">HSL</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-4 space-y-2">
+<div class="flex gap-1 mb-4 overflow-x-auto pb-2 custom-scrollbar">
+<button class="px-3 py-1 rounded-full bg-primary/20 text-primary text-label-sm border border-primary/30">Hue</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant text-label-sm border border-outline-variant">Sat</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant text-label-sm border border-outline-variant">Lum</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<input class="flex-1 h-1 bg-gradient-to-r from-red-600 to-red-400 rounded-full appearance-none cursor-pointer slider-thumb-custom" type="range"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-orange-500"></div>
+<input class="flex-1 h-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full appearance-none cursor-pointer slider-thumb-custom" type="range"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-blue-500"></div>
+<input class="flex-1 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full appearance-none cursor-pointer slider-thumb-custom" type="range"/>
+</div>
+</div>
+</div>
+</details>
+<!-- AI Features -->
+<details class="bg-surface-container-high rounded-xl overflow-hidden group border border-primary/20">
+<summary class="list-none cursor-pointer p-3 flex justify-between items-center bg-primary/5 hover:bg-primary/10 transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-headline-md font-headline-md text-primary">AI Features</span>
+</div>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary">expand_more</span>
+</summary>
+<div class="p-4 space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg border border-outline-variant">
+<div class="flex flex-col">
+<span class="text-label-md font-bold text-on-surface">AI Denoise</span>
+<span class="text-[10px] text-on-surface-variant">Recover details in low light</span>
+</div>
+<div class="w-10 h-5 bg-primary/20 rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-3 h-3 bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg border border-outline-variant">
+<div class="flex flex-col">
+<span class="text-label-md font-bold text-on-surface">AI Sky Replacement</span>
+<span class="text-[10px] text-on-surface-variant">Smart atmospheric detection</span>
+</div>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-3 h-3 bg-outline rounded-full"></div>
+</div>
+</div>
+<button class="w-full py-2 bg-primary text-on-primary font-bold rounded-lg text-label-md hover:opacity-90 active:scale-95 transition-all">Compute Optimizations</button>
+</div>
+</details>
+</div>
+</aside>
+</main>
+<!-- Side Menu Icons Overlay -->
+<div class="fixed left-0 top-toolbar-height h-[calc(100vh-toolbar-height)] w-12 flex flex-col items-center py-4 gap-4 bg-surface-container-lowest border-r border-outline-variant z-50">
+<button class="p-2 bg-primary-container text-on-primary-container rounded-lg shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">filter_hdr</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">face</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">movie_filter</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">camera_roll</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">explore</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">apartment</span>
+</button>
+</div>
+<!-- Interaction Script -->
+<script>
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const valDisplay = e.target.parentElement.querySelector('input[type="text"]');
+                if(valDisplay) {
+                    let value = e.target.value;
+                    if(parseFloat(value) > 0) value = "+" + value;
+                    valDisplay.value = value;
+                }
+            });
+        });
+    </script>
+</body></html>
