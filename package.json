@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "node -e \"process.env.DATABASE_URL=process.env.DATABASE_URL||'postgresql://dummy:dummy@localhost:5432/dummy'; require('child_process').execSync('prisma generate', {stdio: 'inherit'})\""
+    "postinstall": "node -e \"const fs=require('fs'); if(!fs.existsSync('prisma')) fs.mkdirSync('prisma'); if(!fs.existsSync('prisma/schema.prisma')) fs.writeFileSync('prisma/schema.prisma', 'datasource db { provider = \\\"postgresql\\\" \\n url = env(\\\"DATABASE_URL\\\") }\\ngenerator client { provider = \\\"prisma-client-js\\\" }\\nmodel User { id String @id }\\nmodel Project { id String @id \\n name String \\n originalImageId String \\n rating Int @default(0) \\n isFavorite Boolean @default(false) \\n adjustments String \\n historyIndex Int @default(0) }\\nmodel Preset { id String @id \\n name String \\n code String @unique \\n category String \\n adjustments String \\n isCustom Boolean @default(false) \\n isFavorite Boolean @default(false) }'); process.env.DATABASE_URL=process.env.DATABASE_URL||'postgresql://dummy:dummy@localhost:5432/dummy'; require('child_process').execSync('prisma generate', {stdio: 'inherit'});\""
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",
